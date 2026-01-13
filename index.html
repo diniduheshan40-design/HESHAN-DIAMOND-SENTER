@@ -6,241 +6,290 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root{
+  --neon:#00e5ff;
+  --bg:#000;
+  --card:#0e1433;
+}
+body.dark{
+  --neon:#ff00ff;
+  --bg:#050818;
+  --card:#000;
+}
+
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(circle at top, #0b0f2a, #000);
+  font-family:Arial,sans-serif;
+  background:radial-gradient(circle at top,#0b0f2a,var(--bg));
   color:#fff;
 }
 
-/* Header */
+/* NAV */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 18px;
+  background:#050818;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.status{
+  width:10px;height:10px;
+  background:#00ff5a;
+  border-radius:50%;
+  box-shadow:0 0 8px #00ff5a;
+  display:inline-block;
+}
+.menu-icon{font-size:26px;cursor:pointer;}
+
+/* SETTINGS */
+.settings{
+  position:fixed;
+  top:60px;
+  right:-230px;
+  width:210px;
+  background:var(--card);
+  padding:15px;
+  border-radius:15px 0 0 15px;
+  transition:.3s;
+  z-index:999;
+}
+.settings.active{right:0;}
+.setting{
+  background:#050818;
+  padding:12px;
+  margin-top:10px;
+  border-radius:12px;
+  text-align:center;
+  cursor:pointer;
+}
+.setting:hover{background:var(--neon);color:#000}
+
+/* HEADER */
 header{
   text-align:center;
-  padding:40px 15px;
+  padding:30px 15px;
 }
 header h1{
-  font-size:28px;
-  letter-spacing:2px;
-  color:#00e5ff;
-  text-shadow:0 0 15px #00e5ff;
-}
-header p{
-  color:#ccc;
-  font-size:14px;
+  color:var(--neon);
+  text-shadow:0 0 15px var(--neon);
 }
 
-/* Sections */
-.section{
-  padding:20px;
-}
-
-/* Cards */
+/* SECTIONS */
+.section{padding:20px;}
 .card{
-  background:#0e1433;
-  border-radius:15px;
+  background:var(--card);
   padding:20px;
+  border-radius:15px;
   margin-bottom:18px;
-  box-shadow:0 0 20px rgba(0,229,255,0.15);
+  box-shadow:0 0 20px rgba(0,229,255,.15);
 }
-.card h2{
-  color:#00e5ff;
-  margin-top:0;
-}
+.card h2{color:var(--neon);}
 
-/* Diamond list */
+/* DIAMONDS */
 .diamond{
   display:flex;
   justify-content:space-between;
   padding:10px 0;
   border-bottom:1px solid #1e2a66;
 }
-.diamond:last-child{
-  border-bottom:none;
-}
+.diamond:last-child{border:none}
 
-/* Main Button */
-.btn{
-  display:block;
-  text-align:center;
-  background:linear-gradient(45deg,#00e5ff,#00ffa2);
-  color:#000;
-  padding:15px;
-  border-radius:30px;
-  font-weight:bold;
-  text-decoration:none;
-  margin-top:15px;
-}
-
-/* Membership */
+/* MEMBERSHIP */
 .membership-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:15px;
-  margin-top:15px;
 }
-
 .member{
   background:#0b1130;
-  border-radius:15px;
   padding:15px;
+  border-radius:15px;
   text-align:center;
-  box-shadow:0 0 15px rgba(255,0,255,0.18);
 }
-
 .member img{
   width:100%;
   max-width:90px;
-  margin-bottom:10px;
 }
-
 .member h3{
-  margin:5px 0 10px;
   font-size:14px;
   color:#ffb3ff;
 }
 
-/* Buy button */
-.buy-btn{
+/* BUTTONS */
+.btn,.buy-btn{
   display:block;
-  padding:8px;
-  border-radius:20px;
-  background:linear-gradient(45deg,#ff00ff,#ff77ff);
-  color:#000;
-  text-decoration:none;
-  font-weight:bold;
-  font-size:13px;
-}
-
-/* Footer */
-footer{
   text-align:center;
-  padding:15px;
-  font-size:12px;
-  color:#777;
+  padding:12px;
+  margin-top:10px;
+  border-radius:25px;
+  background:linear-gradient(45deg,var(--neon),#00ffa2);
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
 }
 
-/* Music Button */
+/* POPUPS */
+.popup{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  align-items:center;
+  justify-content:center;
+}
+.popup-content{
+  background:#0e1433;
+  padding:20px;
+  border-radius:15px;
+  width:260px;
+  text-align:center;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+}
+
+/* MUSIC */
 .music-btn{
   position:fixed;
   bottom:20px;
   right:20px;
-  background:linear-gradient(45deg,#00e5ff,#00ffa2);
-  color:#000;
+  padding:12px 18px;
   border:none;
   border-radius:50px;
-  padding:12px 18px;
+  background:linear-gradient(45deg,var(--neon),#00ffa2);
   font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 0 15px rgba(0,229,255,0.6);
-  z-index:999;
 }
 </style>
 </head>
 
 <body>
 
+<!-- NAV -->
+<div class="navbar">
+  <div>💎 HESHAN OFC <span class="status"></span></div>
+  <div class="menu-icon" onclick="menu()">☰</div>
+</div>
+
+<!-- SETTINGS -->
+<div class="settings" id="settings">
+  <div class="setting" onclick="profile()">👤 Profile</div>
+  <div class="setting" onclick="openPIN()">🔐 Privacy</div>
+  <div class="setting" onclick="theme()">🌙 Theme</div>
+</div>
+
 <header>
-  <h1>HESHAN OFC<br>DIAMOND CENTER</h1>
-  <p>Fast • Trusted • Secure Diamond Top-Up</p>
+  <h1>DIAMOND CENTER</h1>
+  <p>Fast • Trusted • Secure</p>
 </header>
 
 <div class="section">
 
-  <!-- Diamonds -->
-  <div class="card">
-    <h2>💎 Diamond Packages</h2>
+<!-- DIAMONDS -->
+<div class="card">
+<h2>💎 Diamond Packages</h2>
+<div class="diamond"><span>100 Diamonds</span><span>LKR 300</span></div>
+<div class="diamond"><span>310 Diamonds</span><span>LKR 900</span></div>
+<div class="diamond"><span>520 Diamonds</span><span>LKR 1500</span></div>
+<a class="btn" href="https://wa.me/94719845166">Order Diamonds</a>
+</div>
 
-    <div class="diamond">
-      <span>💠 100 Diamonds</span>
-      <span>LKR 300</span>
-    </div>
-    <div class="diamond">
-      <span>💠 310 Diamonds</span>
-      <span>LKR 900</span>
-    </div>
-    <div class="diamond">
-      <span>💠 520 Diamonds</span>
-      <span>LKR 1500</span>
-    </div>
+<!-- MEMBERSHIP -->
+<div class="card">
+<h2>💳 Membership Packages</h2>
+<div class="membership-grid">
 
-    <a class="btn" href="https://wa.me/94719845166">
-      📲 Order Diamonds
-    </a>
-  </div>
+<div class="member">
+<img src="https://files.catbox.moe/l75xah.jpeg">
+<h3>WEEKLY LITE</h3>
+<a class="buy-btn" href="https://wa.me/94719845166?text=*Weekly_Lite*">BUY LKR 130</a>
+</div>
 
-  <!-- Membership -->
-  <div class="card">
-    <h2>💳 Membership Packages</h2>
+<div class="member">
+<img src="https://files.catbox.moe/caj9mj.png">
+<h3>WEEKLY</h3>
+<a class="buy-btn" href="https://wa.me/94719845166?text=*Weekly*">BUY LKR 500</a>
+</div>
 
-    <div class="membership-grid">
+<div class="member">
+<img src="https://files.catbox.moe/3knu8p.png">
+<h3>MONTHLY</h3>
+<a class="buy-btn" href="https://wa.me/94719845166?text=*Monthly*">BUY LKR 2500</a>
+</div>
 
-      <div class="member">
-        <img src="https://files.catbox.moe/l75xah.jpeg">
-        <h3>WEEKLY LITE</h3>
-        <a href="https://wa.me/94719845166" class="buy-btn">BUY LKR 130</a>
-      </div>
+<div class="member">
+<img src="https://files.catbox.moe/82k55o.png">
+<h3>LITTLE PACK</h3>
+<a class="buy-btn" href="https://wa.me/94719845166?text=*Little_Pack*">BUY LKR 1250</a>
+</div>
 
-      <div class="member">
-        <img src="https://files.catbox.moe/caj9mj.png">
-        <h3>WEEKLY</h3>
-        <a href="https://wa.me/94719845166" class="buy-btn">BUY LKR 500</a>
-      </div>
-
-      <div class="member">
-        <img src="https://files.catbox.moe/3knu8p.png">
-        <h3>MONTHLY</h3>
-        <a href="https://wa.me/94719845166" class="buy-btn">BUY LKR 2500</a>
-      </div>
-
-      <div class="member">
-        <img src="https://files.catbox.moe/82k55o.png">
-        <h3>LITTLE PACK</h3>
-        <a href="https://wa.me/94719845166" class="buy-btn">BUY LKR 1250</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- Why -->
-  <div class="card">
-    <h2>⚡ Why Choose Us?</h2>
-    <p>✔ Instant Delivery</p>
-    <p>✔ Safe & Secure</p>
-    <p>✔ Best Prices</p>
-  </div>
+</div>
+</div>
 
 </div>
 
-<footer>
+<footer style="text-align:center;color:#777;font-size:12px;">
 © 2026 HESHAN OFC DIAMOND CENTER
 </footer>
 
-<!-- Background Music -->
-<audio id="bgMusic" loop>
-  <source src="https://files.catbox.moe/o07i29.mp4" type="audio/mpeg">
-</audio>
+<!-- PROFILE -->
+<div class="popup" id="profile">
+  <div class="popup-content">
+    <h3>👤 Profile</h3>
+    <input placeholder="Player Name">
+    <input placeholder="Player UID">
+    <a class="btn" onclick="closePop()">Save</a>
+  </div>
+</div>
 
+<!-- PIN -->
+<div class="popup" id="pin">
+  <div class="popup-content">
+    <h3>🔐 Enter PIN</h3>
+    <input id="pinInput" type="password" placeholder="PIN">
+    <a class="btn" onclick="checkPIN()">Unlock</a>
+  </div>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+<source src="https://files.catbox.moe/o07i29.mp4">
+</audio>
 <button class="music-btn" onclick="toggleMusic()">🔊 MUSIC</button>
 
 <script>
-const music = document.getElementById("bgMusic");
-let playing = false;
+const settings=document.getElementById("settings");
+function menu(){settings.classList.toggle("active");}
 
-document.addEventListener("click", function(){
-  if(!playing){
-    music.volume = 0.3;
-    music.play();
-    playing = true;
-  }
-},{once:true});
-
-function toggleMusic(){
-  if(music.paused){
-    music.play();
-  }else{
-    music.pause();
-  }
+function profile(){
+document.getElementById("profile").style.display="flex";
 }
+function openPIN(){
+document.getElementById("pin").style.display="flex";
+}
+function closePop(){
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+}
+function checkPIN(){
+if(document.getElementById("pinInput").value==="1234"){
+alert("Unlocked 🔓");closePop();
+}else alert("Wrong PIN ❌");
+}
+function theme(){document.body.classList.toggle("dark");}
+
+/* MUSIC */
+const music=document.getElementById("bgMusic");
+let played=false;
+document.addEventListener("click",()=>{
+if(!played){music.volume=0.3;music.play();played=true;}
+},{once:true});
+function toggleMusic(){music.paused?music.play():music.pause();}
 </script>
 
 </body>
