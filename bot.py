@@ -2,7 +2,7 @@ import os
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes, filters
 
-TOKEN = os.getenv("9119707128:AAF1wT-d75gL-KrUeX9WPc8pe6KFJMaB3qY")
+TOKEN = os.getenv("BOT_TOKEN")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("ආයුබෝවන්! මම HESHAN OFC Official Bot. මට ඕනෑම මැසේජ් එකක් දාන්න.")
